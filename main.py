@@ -36,6 +36,7 @@ class AppData(object):
 					'Tkconstants', 'Tkinter']
 					
 		self.main_script = frame.fpMainScript.GetPath()
+		self.main_script = self.main_script.replace("\\","\\\\")
 		
 		self.main = self.main_script[:-3].split("\\")[-1]
 		self.root = self.main_script[:self.main_script.rindex("\\")]
@@ -44,6 +45,7 @@ class AppData(object):
 		self.data_files = []
 		for i in range(frame.lbDirs.GetCount()):
 			path = frame.lbDirs.GetString(i)
+			path = path.replace("\\","\\\\")			
 			dir = path[path.rindex(self.root)+len(self.root):path.rindex("\\")]
 			self.data_files.append((self.root + "\\" + DEFAULT_DIST + dir , [path]))
 		
@@ -75,7 +77,7 @@ class Nsis(object):
 	def __init__(self, data):
 		
 		files = []
-		dir = os.path.join(os.getcwd(), DEFAULT_DIST)
+		dir = os.path.join(data.root, DEFAULT_DIST)
 		for root, sub_folders, fs in os.walk(dir):
 			for file in fs:
 				path = os.path.join(root, file)
@@ -86,6 +88,7 @@ class Nsis(object):
 		data_files = []
 		ant_dir = ''
 		for file in files:
+			file = file.encode('ascii')
 			set_dir = file[file.rindex(dir)+len(dir):file.rindex("\\")]
 			if set_dir != '' and ant_dir != set_dir:
 				data_files.append('*** SetOutPath "$INSTDIR' + set_dir + '" *** ***')
@@ -94,7 +97,7 @@ class Nsis(object):
 			else:
 				data_files.append("File " + file + "***")							
 		
-		data.files = str(data_files)[1:-1].replace(",", "").replace("'", "")		
+		data.files = str(data_files)[1:-1].replace(",", "").replace("'", "")
 		
 		template = open(os.path.join(os.getcwd(), "templates\\installer.nsi")).read()
 		template %= {"main_script" : data.main_script, "version" : data.version, "company_name" : data.company_name,
@@ -228,7 +231,7 @@ class FrmApplication(FrmMain):
 		self.fpMainScript.SetPath(data.main_script)
 		
 		for file in data.data_files:
-			self.lbDirs.Append(file)
+			self.lbDirs.Append(file[1][0])
 		
 		
 	def add_dir(self):
