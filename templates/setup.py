@@ -28,7 +28,7 @@ setup(
 						  "packages": %(packages)s,
 						  #"dll_excludes": dll_excludes,
 						  "bundle_files": 3,
-						  "dist_dir": "dist",
+						  "dist_dir": "%(dist)s",
 						  "xref": False,
 						  "skip_archive": False,
 						  "ascii": False,

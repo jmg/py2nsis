@@ -16,7 +16,7 @@ import wx
 class FrmMain ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Py2Nsis", pos = wx.DefaultPosition, size = wx.Size( 477,653 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"py2Nsis", pos = wx.DefaultPosition, size = wx.Size( 477,644 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -52,14 +52,14 @@ class FrmMain ( wx.Frame ):
 		gSizer1.Add( self.m_staticText23, 0, wx.ALL, 5 )
 		
 		self.tbCopyright = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		gSizer1.Add( self.tbCopyright, 1, wx.ALL|wx.EXPAND, 5 )
+		gSizer1.Add( self.tbCopyright, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.m_staticText22 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Company Name", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText22.Wrap( -1 )
 		gSizer1.Add( self.m_staticText22, 0, wx.ALL, 5 )
 		
 		self.tbCompany = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		gSizer1.Add( self.tbCompany, 0, wx.EXPAND|wx.ALL, 5 )
+		gSizer1.Add( self.tbCompany, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer2.Add( gSizer1, 1, wx.EXPAND, 5 )
 		
@@ -72,7 +72,7 @@ class FrmMain ( wx.Frame ):
 		self.fpMainScript = wx.FilePickerCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
 		bSizer2.Add( self.fpMainScript, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.m_staticText1021 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Additional Python Modules", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText1021 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Aditional Python Modules", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText1021.Wrap( -1 )
 		self.m_staticText1021.SetFont( wx.Font( 10, 74, 90, 92, False, "Tahoma" ) )
 		
@@ -80,35 +80,39 @@ class FrmMain ( wx.Frame ):
 		
 		bSizer13 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		bSizer132 = wx.BoxSizer( wx.VERTICAL )
+		bSizer4 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.tbModule = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer132.Add( self.tbModule, 0, wx.ALL, 5 )
+		bSizer4.Add( self.tbModule, 0, wx.ALL, 5 )
 		
 		self.btAdd = wx.Button( self.m_panel1, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer132.Add( self.btAdd, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer4.Add( self.btAdd, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		bSizer13.Add( bSizer132, 0, wx.EXPAND, 5 )
+		bSizer13.Add( bSizer4, 0, wx.EXPAND, 5 )
 		
 		lbModulesChoices = []
-		self.lbModules = wx.ListBox( self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, lbModulesChoices, wx.LB_MULTIPLE )
+		self.lbModules = wx.ListBox( self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, lbModulesChoices, wx.LB_EXTENDED )
 		bSizer13.Add( self.lbModules, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer2.Add( bSizer13, 1, wx.EXPAND, 5 )
 		
-		self.m_staticText10 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Static Files Dirs", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText10.Wrap( -1 )
-		self.m_staticText10.SetFont( wx.Font( 10, 74, 90, 92, False, "Tahoma" ) )
+		self.m_staticText10211 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Static Files", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText10211.Wrap( -1 )
+		self.m_staticText10211.SetFont( wx.Font( 10, 74, 90, 92, False, "Tahoma" ) )
 		
-		bSizer2.Add( self.m_staticText10, 0, wx.ALL, 5 )
+		bSizer2.Add( self.m_staticText10211, 0, wx.ALL, 5 )
 		
 		bSizer131 = wx.BoxSizer( wx.HORIZONTAL )
 		
+		bSizer41 = wx.BoxSizer( wx.VERTICAL )
+		
 		self.btAddDir = wx.Button( self.m_panel1, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer131.Add( self.btAddDir, 0, wx.ALL, 5 )
+		bSizer41.Add( self.btAddDir, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer131.Add( bSizer41, 0, wx.EXPAND, 5 )
 		
 		lbDirsChoices = []
-		self.lbDirs = wx.ListBox( self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, lbDirsChoices, wx.LB_MULTIPLE )
+		self.lbDirs = wx.ListBox( self.m_panel1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, lbDirsChoices, wx.LB_EXTENDED )
 		bSizer131.Add( self.lbDirs, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer2.Add( bSizer131, 1, wx.EXPAND, 5 )
@@ -124,28 +128,28 @@ class FrmMain ( wx.Frame ):
 		self.SetSizer( bSizer1 )
 		self.Layout()
 		self.m_menubar1 = wx.MenuBar( 0 )
-		self.m_menu1 = wx.Menu()
-		self.mnOpen = wx.MenuItem( self.m_menu1, wx.ID_ANY, u"Open", wx.EmptyString, wx.ITEM_NORMAL )
-		self.m_menu1.AppendItem( self.mnOpen )
+		self.mnFile = wx.Menu()
+		self.mnOpen = wx.MenuItem( self.mnFile, wx.ID_ANY, u"Open", wx.EmptyString, wx.ITEM_NORMAL )
+		self.mnFile.AppendItem( self.mnOpen )
 		
-		self.mnSave = wx.MenuItem( self.m_menu1, wx.ID_ANY, u"Save", wx.EmptyString, wx.ITEM_NORMAL )
-		self.m_menu1.AppendItem( self.mnSave )
+		self.mnSave = wx.MenuItem( self.mnFile, wx.ID_ANY, u"Save", wx.EmptyString, wx.ITEM_NORMAL )
+		self.mnFile.AppendItem( self.mnSave )
 		
-		self.mnSaveAs = wx.MenuItem( self.m_menu1, wx.ID_ANY, u"Save As...", wx.EmptyString, wx.ITEM_NORMAL )
-		self.m_menu1.AppendItem( self.mnSaveAs )
+		self.mnSaveAs = wx.MenuItem( self.mnFile, wx.ID_ANY, u"Save As...", wx.EmptyString, wx.ITEM_NORMAL )
+		self.mnFile.AppendItem( self.mnSaveAs )
 		
-		self.m_menu1.AppendSeparator()
+		self.mnFile.AppendSeparator()
 		
-		self.mnExit = wx.MenuItem( self.m_menu1, wx.ID_ANY, u"Exit", wx.EmptyString, wx.ITEM_NORMAL )
-		self.m_menu1.AppendItem( self.mnExit )
+		self.mnExit = wx.MenuItem( self.mnFile, wx.ID_ANY, u"Exit", wx.EmptyString, wx.ITEM_NORMAL )
+		self.mnFile.AppendItem( self.mnExit )
 		
-		self.m_menubar1.Append( self.m_menu1, u"Fiile" ) 
+		self.m_menubar1.Append( self.mnFile, u"File" ) 
 		
-		self.m_menu2 = wx.Menu()
-		self.mnAbout = wx.MenuItem( self.m_menu2, wx.ID_ANY, u"About", wx.EmptyString, wx.ITEM_NORMAL )
-		self.m_menu2.AppendItem( self.mnAbout )
+		self.mnHelp = wx.Menu()
+		self.mnAbout = wx.MenuItem( self.mnHelp, wx.ID_ANY, u"About", wx.EmptyString, wx.ITEM_NORMAL )
+		self.mnHelp.AppendItem( self.mnAbout )
 		
-		self.m_menubar1.Append( self.m_menu2, u"Help" ) 
+		self.m_menubar1.Append( self.mnHelp, u"Help" ) 
 		
 		self.SetMenuBar( self.m_menubar1 )
 		

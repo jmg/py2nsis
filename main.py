@@ -11,6 +11,10 @@ import py2exe
 warnings.resetwarnings() 
 
 from gui import FrmMain
+from bar import FrmBar
+import time
+
+DEFAULT_DIST = "dist"
 
 class AppData(object):
 	
@@ -23,7 +27,7 @@ class AppData(object):
 		
 		self.includes = []
 		for i in range(frame.lbModules.GetCount()):
-			self.includes.append(frame.lbModules.GetString(i))		
+			self.includes.append(frame.lbModules.GetString(i).decode('ascii'))
 		
 		self.packages = []
 		
@@ -33,9 +37,15 @@ class AppData(object):
 					
 		self.main_script = frame.fpMainScript.GetPath()
 		
+		self.main = self.main_script[:-3].split("\\")[-1]
+		self.root = self.main_script[:self.main_script.rindex("\\")]
+		self.dist = self.root + "\\" + DEFAULT_DIST
+		
 		self.data_files = []
 		for i in range(frame.lbDirs.GetCount()):
-			self.data_files.append(frame.lbDirs.GetString(i))
+			path = frame.lbDirs.GetString(i)
+			dir = path[path.rindex(self.root)+len(self.root):path.rindex("\\")]
+			self.data_files.append((self.root + "\\" + DEFAULT_DIST + dir , [path]))
 		
 
 class Setup(object):
@@ -44,15 +54,17 @@ class Setup(object):
 		
 		template = open(os.path.join(os.getcwd(), "templates\\setup.py")).read()
 		template %= {"main_script" : data.main_script, "version" : data.version, "company_name" : data.company_name,
-				   "copyright" : data.copyright, "name" : data.name, "data_files" : data.data_files, 
+				   "copyright" : data.copyright, "name" : data.name, "data_files" : data.data_files, "dist" : data.dist,
 				   "includes" : data.includes,  "excludes" : data.excludes, "packages" : data.packages}
 
-				
-		f = open("setup.py", "w")
+		setup = data.root + "\\setup.py"
+		f = open(setup, "w")
 		f.write(template)
 		f.close()
 		
-		cmd = ["C:\\Python26\python.exe", "setup.py", "py2exe"]
+		#f = open("log", "w")
+				
+		cmd = ["python", setup, "py2exe"]
 		p = subprocess.Popen(cmd)
 		while p.poll() is None:
 			pass
@@ -62,21 +74,42 @@ class Nsis(object):
 	
 	def __init__(self, data):
 		
-		data.files = str(["File " + f + "***" for f in os.listdir(os.path.join(os.getcwd(), "dist"))])[1:-1].replace(",", "").replace("'", "")
-		data.main = data.main_script[:-3].split("\\")[-1]
+		files = []
+		dir = os.path.join(os.getcwd(), DEFAULT_DIST)
+		for root, sub_folders, fs in os.walk(dir):
+			for file in fs:
+				path = os.path.join(root, file)
+				files.append(path)
+				
+		sorted(files, key=lambda x: (x.count("\\"), x))
+		
+		data_files = []
+		ant_dir = ''
+		for file in files:
+			set_dir = file[file.rindex(dir)+len(dir):file.rindex("\\")]
+			if set_dir != '' and ant_dir != set_dir:
+				data_files.append('*** SetOutPath "$INSTDIR' + set_dir + '" *** ***')
+				data_files.append("File " + file + "***")
+				ant_dir = set_dir
+			else:
+				data_files.append("File " + file + "***")							
+		
+		data.files = str(data_files)[1:-1].replace(",", "").replace("'", "")		
 		
 		template = open(os.path.join(os.getcwd(), "templates\\installer.nsi")).read()
 		template %= {"main_script" : data.main_script, "version" : data.version, "company_name" : data.company_name,
-				   "copyright" : data.copyright, "name" : data.name, "data_files" : data.data_files, 
+				   "copyright" : data.copyright, "name" : data.name, "data_files" : data.data_files, "dist" : data.dist,
 				   "includes" : data.includes,  "excludes" : data.excludes, "packages" : data.packages,
 				   "files": data.files, "delete_files": "", "main" : data.main}
 		
 		template = template.replace("***","\n")
-		f = open("dist\\installer.nsi", "w")
+		f = open(data.root + "\\" + DEFAULT_DIST + "\\installer.nsi", "w")
 		f.write(template)
 		f.close()
+				
+		#f = open("log2", "w")
 		
-		cmd = ["C:\\Archivos de programa\\NSIS\\makensis.exe", "dist\\installer.nsi"]
+		cmd = ["C:\\Archivos de programa\\NSIS\\makensis.exe", data.root + "\\" + DEFAULT_DIST + "\\installer.nsi"]
 		p = subprocess.Popen(cmd)
 		while p.poll() is None:
 			pass
@@ -123,10 +156,13 @@ class FrmApplication(FrmMain):
 	def exit(self):
 		self.Close()
 	
-	def generate(self):
-		data = AppData(self)
-		Setup(data)		
-		Nsis(data)
+	def generate(self):		
+		data = AppData(self)		
+		if data.name != '' and data.main_script != '':
+			Setup(data)
+			Nsis(data)
+		else:
+			wx.MessageBox("You must salect a Main script and a Name for your application", "Warning", style=wx.ICON_EXCLAMATION)
 	
 	def add(self):
 		self.lbModules.Append(self.tbModule.GetValue())
@@ -152,7 +188,7 @@ class FrmApplication(FrmMain):
 		
 	def _show_file_dialog(self):
 		path = None
-		fd = wx.FileDialog(None, "Select Files", style=wx.SAVE)
+		fd = wx.FileDialog(None, "Select Files", style=wx.SAVE, wildcard="*.py2nsis")
 		if fd.ShowModal() == wx.ID_OK:
 			path = fd.GetPath()				
 			if not path.endswith(".py2nsis"):
@@ -160,13 +196,24 @@ class FrmApplication(FrmMain):
 		return path
 		
 	def open(self):
-		fd = wx.FileDialog(None, "Select Files", style=wx.OPEN)
+		fd = wx.FileDialog(None, "Select Files", style=wx.OPEN, wildcard="*.py2nsis")
 		if fd.ShowModal() == wx.ID_OK:
 			path = fd.GetPath()
 			f = open(path, "r")
 			data = pickle.load(f)
+			self.clear()
 			self.load(data)
 			self.file_name = path
+			
+	def clear(self):
+		
+		self.tbVersion.SetValue("")
+		self.tbCompany.SetValue("")
+		self.tbCopyright.SetValue("")
+		self.tbAppName.SetValue("")		
+		self.lbModules.Clear()
+		self.fpMainScript.SetPath("")		
+		self.lbDirs.Clear()
 			
 	def load(self, data):
 		
@@ -199,6 +246,7 @@ class FrmApplication(FrmMain):
 			except:
 				pass
 
+
 class App(wx.App):
 	
     def OnInit(self):
@@ -206,6 +254,7 @@ class App(wx.App):
 		frmApplication.Show()
 		self.SetTopWindow(frmApplication)
 		return True
+
 
 if __name__ == '__main__':
 	
