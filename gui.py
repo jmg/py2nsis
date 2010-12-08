@@ -61,6 +61,13 @@ class FrmMain ( wx.Frame ):
 		self.tbCompany = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		gSizer1.Add( self.tbCompany, 0, wx.ALL|wx.EXPAND, 5 )
 		
+		self.m_staticText221 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Dist Folder (default is /dist)", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText221.Wrap( -1 )
+		gSizer1.Add( self.m_staticText221, 0, wx.ALL, 5 )
+		
+		self.tbDist = wx.TextCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		gSizer1.Add( self.tbDist, 0, wx.ALL|wx.EXPAND, 5 )
+		
 		bSizer2.Add( gSizer1, 1, wx.EXPAND, 5 )
 		
 		self.m_staticText102 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Main Script", wx.DefaultPosition, wx.DefaultSize, 0 )

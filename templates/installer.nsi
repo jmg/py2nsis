@@ -15,14 +15,14 @@
 
 ; MUI Settings
 !define MUI_ABORTWARNING
-#!define MUI_ICON "Sistema Expedicion de Boletos\images\bus.ico"
+;!define MUI_ICON "Sistema Expedicion de Boletos\images\bus.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 
 ; Welcome page
 !define MUI_WELCOMEPAGE_TITLE_3LINES
 !insertmacro MUI_PAGE_WELCOME
 ; License page
-;!insertmacro MUI_PAGE_LICENSE "..\..\..\ruta\ala\licencia\TuLicenciaDeSoftware.txt"
+
 ; Directory page
 !insertmacro MUI_PAGE_DIRECTORY
 ; Instfiles page
@@ -52,11 +52,14 @@ Section "Principal" SEC01
   SetOutPath "$INSTDIR"
 
   %(files)s
+  
+  SetOutPath "$INSTDIR"
+  
 SectionEnd
 
 Section -AdditionalIcons
-;  WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
-  CreateShortCut "$SMPROGRAMS\%(main)s.lnk" "$INSTDIR\%(main)s.exe"
+  CreateShortCut "$SMPROGRAMS\%(name)s.lnk" "$INSTDIR\%(main)s.exe"
+  CreateShortCut "$DESKTOP\%(name)s.lnk" "$INSTDIR\%(main)s.exe"
   CreateShortCut "$SMPROGRAMS\%(name)s\Desinstalar.lnk" "$INSTDIR\uninst.exe"
 SectionEnd
 
@@ -86,7 +89,6 @@ Section Uninstall
   %(delete_files)s
 
   Delete "$SMPROGRAMS\%(name)s\Desinstalar.lnk"
-;  Delete "$SMPROGRAMS\Sistema de Expedicion de Boletos\Sitio Web MSA.lnk"
   Delete "$DESKTOP\%(main)s.lnk"
   Delete "$SMPROGRAMS\%(name)s.lnk"
 
