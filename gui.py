@@ -130,7 +130,7 @@ class FrmMain ( wx.Frame ):
 		self.m_panel1.SetSizer( bSizer2 )
 		self.m_panel1.Layout()
 		bSizer2.Fit( self.m_panel1 )
-		bSizer1.Add( self.m_panel1, 1, wx.EXPAND |wx.ALL, 5 )
+		bSizer1.Add( self.m_panel1, 1, wx.EXPAND|wx.ALL, 5 )
 		
 		self.SetSizer( bSizer1 )
 		self.Layout()
@@ -151,6 +151,12 @@ class FrmMain ( wx.Frame ):
 		self.mnFile.AppendItem( self.mnExit )
 		
 		self.m_menubar1.Append( self.mnFile, u"File" ) 
+		
+		self.mnConfiguration = wx.Menu()
+		self.mnConfig = wx.MenuItem( self.mnConfiguration, wx.ID_ANY, u"Paths", wx.EmptyString, wx.ITEM_NORMAL )
+		self.mnConfiguration.AppendItem( self.mnConfig )
+		
+		self.m_menubar1.Append( self.mnConfiguration, u"Configuration" ) 
 		
 		self.mnHelp = wx.Menu()
 		self.mnAbout = wx.MenuItem( self.mnHelp, wx.ID_ANY, u"About", wx.EmptyString, wx.ITEM_NORMAL )
@@ -173,6 +179,7 @@ class FrmMain ( wx.Frame ):
 		self.Bind( wx.EVT_MENU, self.mnSave_click, id = self.mnSave.GetId() )
 		self.Bind( wx.EVT_MENU, self.mnSaveAs_click, id = self.mnSaveAs.GetId() )
 		self.Bind( wx.EVT_MENU, self.mnExit_click, id = self.mnExit.GetId() )
+		self.Bind( wx.EVT_MENU, self.btConfig_click, id = self.mnConfig.GetId() )
 		self.Bind( wx.EVT_MENU, self.mnAbout_click, id = self.mnAbout.GetId() )
 	
 	def __del__( self ):
@@ -205,6 +212,9 @@ class FrmMain ( wx.Frame ):
 		event.Skip()
 	
 	def mnExit_click( self, event ):
+		event.Skip()
+	
+	def btConfig_click( self, event ):
 		event.Skip()
 	
 	def mnAbout_click( self, event ):

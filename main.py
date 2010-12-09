@@ -204,6 +204,17 @@ class FrmApplication(FrmMain):
             
     def exit(self):
         self.Close()
+        
+    def btConfig_click( self, event ):
+		self.Config()
+        
+    def Config(self):
+        config = ConfigParser.ConfigParser()
+        f = open("config.ini", "r")
+        config.readfp(f)
+        f.close()
+        frmConfig = FrmConfiguration(self, config)
+        frmConfig.Show()          
     
     def generate(self):		
         if self.tbAppName.GetValue() != '' and self.fpMainScript.GetPath() != '':

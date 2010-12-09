@@ -1528,6 +1528,26 @@
                     </object>
                 </object>
                 <object class="wxMenu" expanded="1">
+                    <property name="label">Configuration</property>
+                    <property name="name">mnConfiguration</property>
+                    <property name="permission">protected</property>
+                    <object class="wxMenuItem" expanded="1">
+                        <property name="bitmap"></property>
+                        <property name="checked">0</property>
+                        <property name="enabled">1</property>
+                        <property name="help"></property>
+                        <property name="id">wxID_ANY</property>
+                        <property name="kind">wxITEM_NORMAL</property>
+                        <property name="label">Paths</property>
+                        <property name="name">mnConfig</property>
+                        <property name="permission">none</property>
+                        <property name="shortcut"></property>
+                        <property name="unchecked_bitmap"></property>
+                        <event name="OnMenuSelection">btConfig_click</event>
+                        <event name="OnUpdateUI"></event>
+                    </object>
+                </object>
+                <object class="wxMenu" expanded="1">
                     <property name="label">Help</property>
                     <property name="name">mnHelp</property>
                     <property name="permission">protected</property>
@@ -1801,7 +1821,7 @@
             <property name="minimum_size"></property>
             <property name="name">FrmConfig</property>
             <property name="pos"></property>
-            <property name="size">434,152</property>
+            <property name="size">441,152</property>
             <property name="style">wxDEFAULT_DIALOG_STYLE|wxSTAY_ON_TOP</property>
             <property name="subclass"></property>
             <property name="title"></property>
