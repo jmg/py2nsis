@@ -86,19 +86,14 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
-  %(delete_files)s
+  Delete "$INSTDIR\*"
 
   Delete "$SMPROGRAMS\%(name)s\Desinstalar.lnk"
   Delete "$DESKTOP\%(main)s.lnk"
   Delete "$SMPROGRAMS\%(name)s.lnk"
 
-
   RMDir "$SMPROGRAMS\%(name)s"
-  RMDir "$INSTDIR\docs\images"
-  RMDir "$INSTDIR\docs"
-  RMDir "$INSTDIR\images"
-  RMDir "$INSTDIR\lib"
-  RMDir "$INSTDIR\database"
+  RMDir "$INSTDIR\*"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"

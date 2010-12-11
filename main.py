@@ -4,6 +4,7 @@ import os
 import subprocess
 import pickle
 import ConfigParser
+import shutil
 
 from distutils.core import setup
 import warnings 
@@ -38,7 +39,7 @@ class AppData(object):
                                 'Tkconstants', 'Tkinter']
                                 
         self.main_script = frame.fpMainScript.GetPath()
-        self.main_script = self.main_script.replace("\\","\\\\")
+        #self.main_script = self.main_script.replace("\\","\\\\")
         
         self.main = self.main_script[:-3].split("\\")[-1]
         self.root = self.main_script[:self.main_script.rindex("\\")]
@@ -52,11 +53,13 @@ class AppData(object):
         self.data_files = []
         for i in range(frame.lbDirs.GetCount()):
             path = frame.lbDirs.GetString(i)
-            path = path.replace("\\","\\\\")
+            #path = path.replace("\\","\\\\")
             dir = path[path.rindex(self.root)+len(self.root):path.rindex("\\")]
             self.data_files.append((self.dist + dir , [path]))
             
         self.nsisPath = frame.nsisPath
+        
+        shutil.rmtree(self.dist)
 
 
 class Setup(object):
@@ -112,14 +115,14 @@ class Nsis(object):
         template %= {"main_script" : data.main_script, "version" : data.version, "company_name" : data.company_name,
                    "copyright" : data.copyright, "name" : data.name, "data_files" : data.data_files, "dist" : data.dist,
                    "includes" : data.includes,  "excludes" : data.excludes, "packages" : data.packages,
-                   "files": data.files, "delete_files": "", "main" : data.main}
+                   "files": data.files, "main" : data.main}
         
         template = template.replace("***","\n")
         f = open(data.dist + "\\installer.nsi", "w")
         f.write(template)
         f.close()
                         
-        #f = open("log2", "w")
+        #f = open("log2", "w")            
         
         cmd = [data.nsisPath, data.dist + "\\installer.nsi"]
         p = subprocess.Popen(cmd)
