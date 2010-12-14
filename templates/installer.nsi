@@ -58,8 +58,8 @@ Section "Principal" SEC01
 SectionEnd
 
 Section -AdditionalIcons
-  CreateShortCut "$SMPROGRAMS\%(name)s.lnk" "$INSTDIR\%(main)s.exe"
-  CreateShortCut "$DESKTOP\%(name)s.lnk" "$INSTDIR\%(main)s.exe"
+  CreateShortCut "$SMPROGRAMS\%(name)s.lnk" "$INSTDIR\%(name)s.exe"
+  CreateShortCut "$DESKTOP\%(name)s.lnk" "$INSTDIR\%(name)s.exe"
   CreateShortCut "$SMPROGRAMS\%(name)s\Desinstalar.lnk" "$INSTDIR\uninst.exe"
 SectionEnd
 
@@ -89,7 +89,7 @@ Section Uninstall
   Delete "$INSTDIR\*"
 
   Delete "$SMPROGRAMS\%(name)s\Desinstalar.lnk"
-  Delete "$DESKTOP\%(main)s.lnk"
+  Delete "$DESKTOP\%(name)s.lnk"
   Delete "$SMPROGRAMS\%(name)s.lnk"
 
   RMDir "$SMPROGRAMS\%(name)s"

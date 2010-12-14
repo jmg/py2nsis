@@ -15,6 +15,7 @@ target = {
 'company_name' : "%(company_name)s",
 'copyright' : "%(copyright)s",
 'name' : "%(name)s", 
+'dest_base' : "%(name)s", 
 }		
 
 setup(
