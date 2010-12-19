@@ -13,6 +13,7 @@ warnings.resetwarnings()
 from Gui.Main import FrmMain
 from Gui.Config import FrmConfig
 from Gui.About import FrmAbout
+from Gui.CustomCode import FrmCustomCode
 
 from Generators.Setup import Setup
 from Generators.Nsis import Nsis
@@ -20,17 +21,39 @@ from Generators.Data import AppData
 
 from Lib.Constants import *
 
+
+class FrmCustomizedCode(FrmCustomCode):
+
+    def __init__(self, parent):
+        FrmCustomCode.__init__(self, parent)
+
+        iconFile = ICON_FILE
+        icon = wx.Icon(iconFile, wx.BITMAP_TYPE_ICO)
+
+        self.SetIcon(icon)
+        self.parent = parent
+        if hasattr(self.parent, 'custom_code'):
+            self.tbCode.SetValue(self.parent.custom_code)
+        
+    def btOk_click( self, event ):        
+        self.parent.custom_code = self.tbCode.GetValue()        
+        self.Close()
+
+    def btCancel_click( self, event ):
+        self.Close()
+        
+
 class FrmConfiguration(FrmConfig):
     
     def __init__(self, parent, config):
         FrmConfig.__init__(self, parent)
         
-        iconFile = "images\\py2nsis.ico"
+        iconFile = ICON_FILE
         icon = wx.Icon(iconFile, wx.BITMAP_TYPE_ICO)
         
         self.SetIcon(icon)
         
-        self.parent = parent
+        self.parent = parent        
         self.config = config
 
     def btOk_click( self, event ):
@@ -56,7 +79,7 @@ class FrmApplication(FrmMain):
     def __init__(self, parent):
         FrmMain.__init__(self, parent)
         
-        iconFile = "images\\py2nsis.ico"
+        iconFile = ICON_FILE
         icon = wx.Icon(iconFile, wx.BITMAP_TYPE_ICO)
         
         self.SetIcon(icon)
@@ -103,6 +126,9 @@ class FrmApplication(FrmMain):
     
     def mnAbout_click( self, event ):
         self.about()
+        
+    def mnAddCustomCode_click( self, event ):
+        self.addCustomCode()
             
     def exit(self):
         self.Close()
@@ -196,6 +222,12 @@ class FrmApplication(FrmMain):
         for file in data.data_files:
             self.lbDirs.Append(file[1][0])
             
+        self.fpLogo.SetPath(data.logo)
+        self.custom_code = data.custom_code
+    
+    def addCustomCode(self):
+        frmCustomizedCode = FrmCustomizedCode(self)
+        frmCustomizedCode.Show()
             
     def add_dir(self):
         fd = wx.FileDialog(None, "Select Files", style=wx.OPEN | wx.MULTIPLE)

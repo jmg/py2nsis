@@ -15,7 +15,7 @@
 
 ; MUI Settings
 !define MUI_ABORTWARNING
-;!define MUI_ICON "Sistema Expedicion de Boletos\images\bus.ico"
+!define MUI_ICON "%(logo)s"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 
 ; Welcome page

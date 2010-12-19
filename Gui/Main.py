@@ -16,7 +16,7 @@ import wx
 class FrmMain ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"py2Nsis", pos = wx.DefaultPosition, size = wx.Size( 480,520 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"py2Nsis", pos = wx.DefaultPosition, size = wx.Size( 480,607 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.Size( 480,520 ), wx.DefaultSize )
 		
@@ -78,6 +78,15 @@ class FrmMain ( wx.Frame ):
 		
 		self.fpMainScript = wx.FilePickerCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
 		bSizer2.Add( self.fpMainScript, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.m_staticText10212 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Logo Icon", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText10212.Wrap( -1 )
+		self.m_staticText10212.SetFont( wx.Font( 10, 74, 90, 92, False, "Tahoma" ) )
+		
+		bSizer2.Add( self.m_staticText10212, 0, wx.ALL, 5 )
+		
+		self.fpLogo = wx.FilePickerCtrl( self.m_panel1, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.ico*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
+		bSizer2.Add( self.fpLogo, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.m_staticText1021 = wx.StaticText( self.m_panel1, wx.ID_ANY, u"Aditional Python Modules", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText1021.Wrap( -1 )
@@ -154,6 +163,12 @@ class FrmMain ( wx.Frame ):
 		
 		self.m_menubar1.Append( self.mnFile, u"&File" ) 
 		
+		self.mnCode = wx.Menu()
+		self.mnAddCode = wx.MenuItem( self.mnCode, wx.ID_ANY, u"&Add Custom Code", wx.EmptyString, wx.ITEM_NORMAL )
+		self.mnCode.AppendItem( self.mnAddCode )
+		
+		self.m_menubar1.Append( self.mnCode, u"&Code" ) 
+		
 		self.mnConfiguration = wx.Menu()
 		self.mnConfig = wx.MenuItem( self.mnConfiguration, wx.ID_ANY, u"&Paths", wx.EmptyString, wx.ITEM_NORMAL )
 		self.mnConfiguration.AppendItem( self.mnConfig )
@@ -181,6 +196,7 @@ class FrmMain ( wx.Frame ):
 		self.Bind( wx.EVT_MENU, self.mnSave_click, id = self.mnSave.GetId() )
 		self.Bind( wx.EVT_MENU, self.mnSaveAs_click, id = self.mnSaveAs.GetId() )
 		self.Bind( wx.EVT_MENU, self.mnExit_click, id = self.mnExit.GetId() )
+		self.Bind( wx.EVT_MENU, self.mnAddCustomCode_click, id = self.mnAddCode.GetId() )
 		self.Bind( wx.EVT_MENU, self.btConfig_click, id = self.mnConfig.GetId() )
 		self.Bind( wx.EVT_MENU, self.mnAbout_click, id = self.mnAbout.GetId() )
 	
@@ -214,6 +230,9 @@ class FrmMain ( wx.Frame ):
 		event.Skip()
 	
 	def mnExit_click( self, event ):
+		event.Skip()
+	
+	def mnAddCustomCode_click( self, event ):
 		event.Skip()
 	
 	def btConfig_click( self, event ):

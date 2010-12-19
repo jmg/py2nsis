@@ -40,6 +40,10 @@ class FrmAbout ( wx.Dialog ):
 		self.m_staticText18.Wrap( -1 )
 		bSizer13.Add( self.m_staticText18, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 		
+		self.m_staticText19 = wx.StaticText( self.m_panel4, wx.ID_ANY, u"Contact: jmg.utn@gmail.com", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText19.Wrap( -1 )
+		bSizer13.Add( self.m_staticText19, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		
 		self.m_panel4.SetSizer( bSizer13 )
 		self.m_panel4.Layout()
 		bSizer13.Fit( self.m_panel4 )

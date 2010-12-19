@@ -23,7 +23,7 @@ class AppData(object):
         self.excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
                                 'pywin.debugger.dbgcon', 'pywin.dialogs', 'tcl',
                                 'Tkconstants', 'Tkinter']
-                                
+                                                
         self.main_script = frame.fpMainScript.GetPath()
         if self.main_script.find("\\\\") == -1:
             self.main_script = self.main_script.replace("\\","\\\\")
@@ -47,5 +47,14 @@ class AppData(object):
             
         self.nsisPath = frame.nsisPath
         
+        self.logo = frame.fpLogo.GetPath()
+        if self.logo.find("\\\\") == -1:
+            self.logo = self.logo.replace("\\","\\\\")
+        
         if os.path.exists(self.dist):
             shutil.rmtree(self.dist)
+            
+        if hasattr(frame, 'custom_code'):
+            self.custom_code = frame.custom_code
+        else:
+            self.custom_code = ""
