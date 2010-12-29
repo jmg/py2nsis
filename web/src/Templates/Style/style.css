@@ -1,0 +1,46 @@
+body {
+	background-color : #000000;
+	font-size: 18px;
+}
+
+div.content {
+	background: #222222;
+	color: #FFFFFF;
+	width: 80%;
+	vertical-align: middle;
+	display: none;
+	position:absolute;
+    top:20px;
+    left:220px;
+}
+
+div.text {
+	margin: 15px;
+}
+
+a.menu {
+	text-decoration: none;
+	color: #FFFFFF;
+	position: relative;
+	background: #111111;
+	padding: 3px;
+	display:block;	
+}
+
+a {
+	text-decoration: none;
+	color: #FF5566;
+}
+h1.title {
+	text-align: center;
+}
+
+ul.menu {
+	position:absolute;
+	top:20px;
+	left: 5px;
+	list-style: none;
+	line-height: 1.5em;
+	width: 10%;
+}
+
