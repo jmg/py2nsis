@@ -9,7 +9,9 @@ class Setup(object):
             
         template = open(os.path.join(os.getcwd(), "templates\\setup.py")).read()
         
-        data.logo_tuple = '(1, "' + data.logo + '")'
+        data.logo_tuple = ''
+        if data.logo != '':
+            data.logo_tuple = '(1, "' + data.logo + '")'
         
         template %= {"main_script" : data.main_script, "version" : data.version, "company_name" : data.company_name,
                     "copyright" : data.copyright, "name" : data.name, "data_files" : data.data_files, "dist" : data.dist,
