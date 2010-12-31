@@ -7,11 +7,12 @@ class Setup(object):
 
     def __init__(self, data):
             
-        template = open(os.path.join(os.getcwd(), "templates\\setup.py")).read()
+        template = open(os.path.join(os.getcwd(), "templates\\setup.py")).read()    
+        
         template %= {"main_script" : data.main_script, "version" : data.version, "company_name" : data.company_name,
                     "copyright" : data.copyright, "name" : data.name, "data_files" : data.data_files, "dist" : data.dist,
                     "includes" : data.includes,  "excludes" : data.excludes, "packages" : data.packages,
-                    "custom_code" : data.custom_code}
+                    "custom_code" : data.custom_code, 'bundle': data.bundle, 'logo': data.logo}
 
         setup = data.root + "\\setup.py"
         f = open(setup, "w")

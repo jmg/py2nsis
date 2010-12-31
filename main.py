@@ -152,7 +152,8 @@ class FrmApplication(FrmMain):
         if self.tbAppName.GetValue() != '' and self.fpMainScript.GetPath() != '':
             data = AppData(self)
             Setup(data)
-            Nsis(data)
+            if not data.setup:
+                Nsis(data)
         else:
             wx.MessageBox("You must salect a Main script and a Name for your application", "Warning", style=wx.ICON_EXCLAMATION)
 
@@ -223,7 +224,9 @@ class FrmApplication(FrmMain):
             self.lbDirs.Append(file[1][0])
             
         self.fpLogo.SetPath(data.logo)
-        self.custom_code = data.custom_code
+        self.custom_code = data.custom_code        
+        self.cbBundle.SetValue(data.bundle)
+        self.ckSetup.SetValue(data.setup)
     
     def addCustomCode(self):
         frmCustomizedCode = FrmCustomizedCode(self)

@@ -16,6 +16,7 @@ target = {
 'copyright' : "%(copyright)s",
 'name' : "%(name)s", 
 'dest_base' : "%(name)s", 
+'icon_resources': [(1, "%(logo)s" )]
 }		
 
 %(custom_code)s
@@ -23,18 +24,20 @@ target = {
 setup(
 
 	data_files = %(data_files)s,
+    
+    zipfile = None,
 
 	options = {"py2exe": {"compressed": 0, 
 						  "optimize": 0,
 						  "includes": %(includes)s,
 						  "excludes": %(excludes)s,
 						  "packages": %(packages)s,
-						  "bundle_files": 3,
+						  "bundle_files": %(bundle)s,
 						  "dist_dir": "%(dist)s",
 						  "xref": False,
 						  "skip_archive": False,
 						  "ascii": False,
-						  "custom_boot_script": '',
+						  "custom_boot_script": '',                          
 						 }
 			  },
 	console = [],

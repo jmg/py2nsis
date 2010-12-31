@@ -58,3 +58,6 @@ class AppData(object):
             self.custom_code = frame.custom_code
         else:
             self.custom_code = ""
+            
+        self.bundle = frame.cbBundle.GetValue()
+        self.setup = frame.ckSetup.GetValue()

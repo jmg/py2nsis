@@ -91,9 +91,12 @@ Section Uninstall
   Delete "$SMPROGRAMS\%(name)s\Desinstalar.lnk"
   Delete "$DESKTOP\%(name)s.lnk"
   Delete "$SMPROGRAMS\%(name)s.lnk"
-
+  
+  %(delete_dirs)s
+  Delete "$INSTDIR\*"
+    
+  %(rm_dirs)s
   RMDir "$SMPROGRAMS\%(name)s"
-  RMDir "$INSTDIR\*"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
