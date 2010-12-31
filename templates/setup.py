@@ -16,7 +16,7 @@ target = {
 'copyright' : "%(copyright)s",
 'name' : "%(name)s", 
 'dest_base' : "%(name)s", 
-'icon_resources': [(1, "%(logo)s" )]
+'icon_resources': [%(logo_tuple)s]
 }		
 
 %(custom_code)s
