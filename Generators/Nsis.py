@@ -32,7 +32,7 @@ class Nsis(object):
         
         data.files = str(data_files)[1:-1].replace(",", "").replace("'", "")
         
-        if data.logo != ''
+        if data.logo != '':
             data.logo = data.logo[data.logo.rindex(data.root)+len(data.root)+1:]
         
         data.delete_dirs = ['Delete "$INSTDIR\\' + dir + '\\*" ***' for dir in delete_dirs]
