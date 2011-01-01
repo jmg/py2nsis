@@ -16,7 +16,7 @@ class AppData(object):
         
         self.includes = []
         for i in range(frame.lbModules.GetCount()):
-            self.includes.append(frame.lbModules.GetString(i).decode('ascii'))
+            self.includes.append(frame.lbModules.GetString(i).encode('ascii'))
         
         self.packages = []
         

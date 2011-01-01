@@ -34,6 +34,7 @@ class Nsis(object):
         
         if data.logo != '':
             data.logo = data.logo[data.logo.rindex(data.root)+len(data.root)+1:]
+            data.logo = "!define MUI_ICON " + data.logo
         
         data.delete_dirs = ['Delete "$INSTDIR\\' + dir + '\\*" ***' for dir in delete_dirs]
         data.delete_dirs = str(data.delete_dirs).replace(",", "").replace("'", "").replace("[", "").replace("]", "")
