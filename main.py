@@ -22,6 +22,7 @@ from Gui.CustomCode import FrmCustomCode
 from Generators.Setup import Setup
 from Generators.Nsis import Nsis
 from Generators.Data import AppData
+from Generators.PyInstaller import PyInstaller
 
 #all the constants
 from Lib.Constants import *
@@ -169,7 +170,8 @@ class FrmApplication(FrmMain):
         """
         if self.tbAppName.GetValue() != '' and self.fpMainScript.GetPath() != '':
             data = AppData(self)
-            Setup(data)
+            #Setup(data)
+            PyInstaller(data)
             #if 'only setup.py' checked don't generate the installer
             if not data.setup:
                 Nsis(data)
