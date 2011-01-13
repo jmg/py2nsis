@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-import subprocess
+from BaseGenerator import BaseGenerator
 
-class Nsis(object):
+class Nsis(BaseGenerator):
     """ Class that generate the Installer.nsi file based on the 'installer.nsi' template
         and run the Nsis command in order to generate the installer.
 
@@ -71,14 +71,9 @@ class Nsis(object):
         f.write(template)
         f.close()
 
-        #considere log the output of Nsis
-        #f = open("log2", "w")
-
         #run the Nsis command
         #Nsis must be instaled!
         cmd = [data.nsisPath, data.dist + "\\installer.nsi"]
-        p = subprocess.Popen(cmd)
-        while p.poll() is None:
-            pass
+        self.execute(cmd)
 
         print "\n\nFinished Succefully!"
