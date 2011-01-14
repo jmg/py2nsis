@@ -41,7 +41,7 @@ Vrun
 p20
 sS'dist'
 p21
-VZ:\u005c\u005chome\u005c\u005cjuanmanuel\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c\u005cdist
+VZ:\u005c\u005chome\u005c\u005cubugtu\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c\u005cdist
 p22
 sS'name'
 p23
@@ -57,7 +57,7 @@ S''
 p28
 sS'root'
 p29
-VZ:\u005c\u005chome\u005c\u005cjuanmanuel\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c
+VZ:\u005c\u005chome\u005c\u005cubugtu\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c
 p30
 sS'setup'
 p31
@@ -82,7 +82,7 @@ p40
 g26
 sS'logo'
 p41
-VZ:\u005c\u005chome\u005c\u005cjuanmanuel\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c\u005cImages\u005c\u005cpy2nsis.ico
+VZ:\u005c\u005chome\u005c\u005cubugtu\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c\u005cImages\u005c\u005cpy2nsis.ico
 p42
 sS'data_files'
 p43
@@ -92,6 +92,6 @@ p45
 (lp46
 sS'main_script'
 p47
-VZ:\u005c\u005chome\u005c\u005cjuanmanuel\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c\u005crun.py
+VZ:\u005c\u005chome\u005c\u005cubugtu\u005c\u005cDESARROLLO\u005c\u005cpy2nsis\u005c\u005crun.py
 p48
 sb.

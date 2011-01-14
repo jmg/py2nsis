@@ -13,7 +13,7 @@ class PyInstaller(BaseGenerator):
 
     def __init__(self, data):
         commands = []
-        DIST = data.root + "/installer"
+        DIST = data.dist
 
         #configure pyinstaller
         cmd = ["python", self.PYINSTALLER_DIR + "Configure.py"]
@@ -22,7 +22,7 @@ class PyInstaller(BaseGenerator):
         if os.path.exists(DIST):
             shutil.rmtree(DIST)
         #Run the makespec.yp
-        cmd = ["python", self.PYINSTALLER_DIR + "Makespec.py", "--noconsole", "-w",
+        cmd = ["python", self.PYINSTALLER_DIR + "Makespec.py", "--noconsole", "-w", "-F",
                "--out=" + DIST,
                data.main_script]
         commands.append(cmd)
