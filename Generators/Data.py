@@ -65,6 +65,16 @@ class AppData(object):
             dir = path[path.rindex(self.root)+len(self.root):path.rindex("\\")]
             self.data_files.append((self.dist + dir , [path]))
 
+        #generate a list of tuples (Table Of Contents) for pyInstaller
+        #FIXME: extract to a method, this sucks!
+        self.datas = []
+        for i in range(frame.lbDirs.GetCount()):
+            path = frame.lbDirs.GetString(i)
+            if path.find("\\\\") == -1:
+                path = path.replace("\\","\\\\")
+            dir = path[path.rindex(self.root)+len(self.root)+len("\\"):]
+            self.datas.append((dir.encode('ascii'), path.encode('ascii') ,'DATA'))
+
         #the path to nsis install dir
         self.nsisPath = frame.nsisPath
 
@@ -82,6 +92,6 @@ class AppData(object):
             self.custom_code = frame.custom_code
         else:
             self.custom_code = ""
-            
+
         self.bundle = frame.cbBundle.GetValue()
         self.setup = frame.ckSetup.GetValue()
