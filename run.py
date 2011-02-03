@@ -27,7 +27,7 @@ from main import FrmApplication
 
 class Application(App):
     """
-        The Main Class of the application that implents the Entry Point
+        The Main Class of the application that implements the Entry Point
     """
 
     def OnInit(self):

@@ -6,12 +6,6 @@ import ConfigParser
 
 from distutils.core import setup
 
-#Avoid the Sets Deprecation warning caused by py2exe
-import warnings
-warnings.simplefilter('ignore', DeprecationWarning)
-import py2exe
-warnings.resetwarnings()
-
 #all the GUI Forms
 from Gui.Main import FrmMain
 from Gui.Config import FrmConfig
@@ -89,6 +83,11 @@ class FrmApplication(FrmMain):
         The Main Form of the Application
     """
 
+    # A dict of modes availables
+    modes = { MODES.PYINSTALLER : PyInstaller,
+              MODES.PY2EXE : Setup,
+            }
+
     def __init__(self, parent):
         FrmMain.__init__(self, parent)
 
@@ -146,17 +145,36 @@ class FrmApplication(FrmMain):
     def mnAddCustomCode_click( self, event ):
         self.addCustomCode()
 
+    def btPy2exe_click( self, event ):
+        self.set_mode(MODES.PY2EXE)
+
+    def btpyInstaller_click( self, event ):
+        self.set_mode(MODES.PYINSTALLER)
+
     def exit(self):
         self.Close()
 
     def btConfig_click( self, event ):
-        self.Config()
+        self.config()
+
+    def set_mode(self, mode):
+        """
+            Set the mode of the generation.
+            see lib/contants to check the MODES enum
+        """
+        self.mode = mode
 
     def about(self):
+        """
+            Show the about form
+        """
         frmAbout = FrmAbout(None)
         frmAbout.Show()
 
-    def Config(self):
+    def config(self):
+        """
+            Read the config and show the form to edit it.
+        """
         config = ConfigParser.ConfigParser()
         f = open("config.ini", "r")
         config.readfp(f)
@@ -169,9 +187,12 @@ class FrmApplication(FrmMain):
             Generate the Executable and the Installer
         """
         if self.tbAppName.GetValue() != '' and self.fpMainScript.GetPath() != '':
+            #Generate the data object
             data = AppData(self)
-            #Setup(data)
-            PyInstaller(data)
+
+            #Call the Class of the actual mode
+            self.modes[self.mode](data)
+
             #if 'only setup.py' checked don't generate the installer
             if not data.setup:
                 Nsis(data)
